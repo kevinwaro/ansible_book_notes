@@ -1,0 +1,5 @@
+---
+- hosts: "{{ target }}"
+  tasks:
+      - name: wait for ssh server to be running
+        local_action: wait_for port=22 host="{{ inventory_hostname }}" search_regex=OpenSSH

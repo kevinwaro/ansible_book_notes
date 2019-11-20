@@ -1,0 +1,9 @@
+- name: show return value of command module
+  hosts: server1
+  gather_facts: false
+  tasks:
+      - name: capture output of id command
+        command: id -un
+        register: login
+      - debug: var=login
+      - debug: msg="Logged in as user {{ login.stdout }}"

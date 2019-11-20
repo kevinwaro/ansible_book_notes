@@ -1,0 +1,10 @@
+---
+- hosts: "{{ target }}"
+  tasks:
+      - name: get hostname
+        shell: cat /etc/hostname
+        delegate_to: glimpse.xwikisas.com
+        register: hostname
+
+      - debug:
+          msg: "Hostname is {{ hostname.stdout }}"

@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  pre_tasks:
+      - command: echo Pre Tasks
+        notify: print message
+        
+  tasks:
+      - command: echo Tasks
+        notify: print message
+
+  post_tasks:
+      - command: echo Post Tasks
+        notify: print message
+
+  handlers:
+      - name: print message
+        command: echo handler executed

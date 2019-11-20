@@ -1,0 +1,11 @@
+---
+- hosts: all
+  connection: local
+  strategy: free
+  tasks:
+      - name: first task
+        shell: sleep "{{ sleep_seconds }}"
+      - name: second task
+        shell: sleep "{{ sleep_seconds }}"
+      - name: third task
+        shell: sleep "{{ sleep_seconds }}"

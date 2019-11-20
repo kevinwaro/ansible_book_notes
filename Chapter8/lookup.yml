@@ -1,0 +1,26 @@
+- name: test of ansible vault
+  hosts: localhost
+  tasks:
+      - name: "Get the content of id_ed25519.pub"
+        debug:
+            msg: "{{ lookup('file', '/home/kevinwaro/.ssh/id_ed25519.pub') }}"
+
+      - name: "Get SHA of most recent commit"
+        debug:
+            msg: "{{ lookup('pipe', 'git rev-parse HEAD') }}"
+
+      - name: "Get the current shell"
+        debug:
+            msg: "{{ lookup('env', 'SHELL') }}"
+
+  #      - name: "Generating a random password"
+  #      debug:
+  #          msg: "{{ lookup('password', 'password.txt') }}"
+
+      - name: "Evaluating template"
+        debug:
+            msg: "{{ lookup('template', 'message.j2') }}"
+
+      - name: "Reading csv file and retrieving sue's mail"
+        debug:
+            msg: "{{ lookup('csvfile', 'sue file=users.csv delimiter=, col=1') }}"

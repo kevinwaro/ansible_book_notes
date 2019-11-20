@@ -1,0 +1,12 @@
+---
+- hosts: mailservers
+  tasks:
+      - copy:
+        src: main.conf
+        dest: /etc/postfix/main.cnf
+        notify: postfix config changed
+
+  handlers:
+      - name: restart postfix
+        service: name=postfix state=restarted
+        listen: postfix config changed

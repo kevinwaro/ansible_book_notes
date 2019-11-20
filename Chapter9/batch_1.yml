@@ -1,0 +1,25 @@
+---
+- name: upgrade packages on servers behind load balancer
+  hosts: myhosts
+  serial: 50%
+  tasks:
+      - name: get the ec2 instance id and elastic load balancer id
+        ec2_facts:
+            
+      - name: take the host out of the elastic load balancer
+        local_action: ec2_elb
+        args:
+            instance_id: "{{ ansible_ec2_instance_id }}"
+            state: absent
+
+      - name: upgrade packages
+        apt: update_cache=yes upgrade=yes
+
+      - name: put the host back in the elastic load balancer
+        local_action: ec2_elb
+        args:
+            instance_id: "{{ ansible_ec2_instance_id }}"
+            state: present
+            ec2_elbs: "{{ item }}"
+        with_items: ec2_elbs
+
